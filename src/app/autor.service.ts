@@ -13,22 +13,22 @@ export class AutorService {
   constructor(private http: HttpClient) { }
 
   public dohvatiSveAutore(): Observable<Autor[]>{
-    return this.http.get<Autor[]>(`${this.apiServerUrl}{"/user/autori", "/admin/autori"}/sviautori`);
+    return this.http.get<Autor[]>(`${this.apiServerUrl}/autori/sviautori`);
   }
 
   public dodajAutora(autor: Autor): Observable<Autor>{
-    return this.http.post<Autor>(`${this.apiServerUrl}{"/user/autori", "/admin/autori"}/dodaj`, autor);
+    return this.http.post<Autor>(`${this.apiServerUrl}/autori/dodaj`, autor);
   }
 
   public promjeniAutora(autor: Autor): Observable<Autor>{
-    return this.http.put<Autor>(`${this.apiServerUrl}{"/user/autori", "/admin/autori"}/promjeni`, autor);
+    return this.http.put<Autor>(`${this.apiServerUrl}/autori/promjeni`, autor);
   }
 
   public izbrisiAutora(autorId: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiServerUrl}/{"/user/autori", "/admin/autori"}/${autorId}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/autori/izbrisi/${autorId}`);
   }
 
   public dohvatiKnjigu(autorId: number): Observable<Autor>{
-    return this.http.get<Autor>(`${this.apiServerUrl}/{"/user/autori", "/admin/autori"}/${autorId}`);
+    return this.http.get<Autor>(`${this.apiServerUrl}/autori/pronadi/${autorId}`);
   }
 }
