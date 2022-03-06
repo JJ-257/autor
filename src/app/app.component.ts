@@ -73,20 +73,26 @@ export class AppComponent implements OnInit {
      );
    }
 
-   public traziAutoraKnjigu(kljuc: string): void {
-     console.log(kljuc);
+   public traziAutoraKnjigu(key: string): void {
+     console.log(key);
      const rezultat: Autor[] = [];
      for (const autor of this.autori) {
-       if(autor.ime.toLowerCase().indexOf(kljuc.toLowerCase()) !== -1
-       || autor.prezime.toLowerCase().indexOf(kljuc.toLowerCase()) !== -1
-       || autor.nazivKnjige.toLowerCase().indexOf(kljuc.toLowerCase()) !== -1)
+      if(autor.ime?.toLowerCase().indexOf(key?.toLowerCase()) !== -1 
+       || autor.prezime?.toLowerCase().indexOf(key?.toLowerCase()) !== -1
+       || autor.nazivKnjige?.toLowerCase().indexOf(key?.toLowerCase()) !== -1)
        {
          rezultat.push(autor);
        }
+
      }
+
+     
+
+
+
      this.autori = rezultat;
 
-     if(rezultat.length === 0 || !kljuc)
+     if(rezultat.length === 0 || !key)
      {
        this.dohvatiSveAutore();
      }
@@ -116,7 +122,5 @@ export class AppComponent implements OnInit {
 
   }
 }
-function addForm(addForm: any) {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -21,8 +21,7 @@
             
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" (ngModelChange)="traziAutoraKnjigu(kljuc.value)" #kljuc="ngModel" ngModel placeholder="Pretraži" name="kljuc" aria-label="Search" required>
-           <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pretraži</button>-->
+            <input class="form-control mr-sm-2" type="search" (ngModelChange)="traziAutoraKnjigu(key.value)" ngModel #key="ngModel"  name="key" placeholder="Pretraži" id="searchName"  aria-label="Search" required>
           </form>
         </div>
       </nav>
@@ -155,7 +154,7 @@
                     <div *ngFor="let autor of autori" class="text-95 text-secondary-d3">
                         <div class="row mb-2 mb-sm-0 py-25">
                           <div class="d-none d-sm-block col-1" name="idBroj" id="idBroj">{{autor.id}}</div>
-                            <div class="col-9 col-sm-5">{{autor.ime}}{{autor?.id}}</div>
+                            <div class="col-9 col-sm-5">{{autor.ime}}</div>
                             <div class="d-none d-sm-block col-2">{{autor.prezime}}</div>
                             <div class="d-none d-sm-block col-2">{{autor.nazivKnjige}}</div>
                             <button (click)="onOpenModal(autor, 'edit')" type="button" class="btn btn-primary" style="margin:5px;" >Uredi</button>
@@ -177,7 +176,7 @@
     </div>
 
 
-<div *ngif="autori.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+<div *ngIf="autori?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
     <div class="alert alert-info" role="alert">
       <h4 class="alert-heading">Nije dodana niti jedna knjiga.</h4>
       <p>Knjige nisu dodane.</p>
