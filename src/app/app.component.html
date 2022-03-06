@@ -1,8 +1,8 @@
+<!DOCTYPE html>
 
 
 
-
-  <div id="main-container">
+  <div id="main-container" >
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Knjižnica</a>
@@ -21,8 +21,8 @@
             
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Pretraži" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pretraži</button>
+            <input class="form-control mr-sm-2" type="search" (ngModelChange)="traziAutoraKnjigu(kljuc.value)" #kljuc="ngModel" ngModel placeholder="Pretraži" name="kljuc" aria-label="Search" required>
+           <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pretraži</button>-->
           </form>
         </div>
       </nav>
@@ -31,7 +31,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
              <div class="modal-header">
-                <h5 class="modal-title" id="addEmployeeModalLabel">Dodaj knjižnicu</h5>
+                <h5 class="modal-title" id="addEmployeeModalLabel">Dodaj autora i knjigu</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -39,16 +39,16 @@
              <div class="modal-body">
                  <form #addForm="ngForm" (ngSubmit)="dodajAutora(addForm)">
                 <div class="form-group">
-                   <label for="name">Ime</label>
+                   <label for="Ime">Ime</label>
                    <input type="text" ngModel name="ime" class="form-control" id="ime" placeholder="Ime" required>
                 </div>
                 <div class="form-group">
-                   <label for="email">Prezime</label>
-                   <input type="email" ngModel name="prezime" class="form-control" id="prezime" placeholder="Prezime" required>
+                   <label for="Prezime">Prezime</label>
+                   <input type="text" ngModel name="prezime" class="form-control" id="prezime" placeholder="Prezime" required>
                 </div>
                 <div class="form-group">
-                  <label for="email">Naziv knjige</label>
-                  <input type="email" ngModel name="nazivknjige" class="form-control" id="nazivknjige" placeholder="Naziv knjige" required>
+                  <label for="nazivKnjige">Naziv knjige</label>
+                  <input type="text" ngModel name="nazivKnjige" class="form-control" id="nazivknjige" placeholder="Naziv knjige" required>
                </div>
                 <div class="modal-footer">
                    <button type="button" id="zatvori" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
@@ -76,19 +76,19 @@
                      <form #editForm="ngForm">
                     <div class="form-group">
                         <label for="name">ID</label>
-                        <input type="hidden" ngModel="{{urediAutor?.idBroj}}" name="id" class="form-control" id="ID" placeholder="ID" required>
+                        <input type="hidden" ngModel="{{urediAutor?.id}}" name="idBroj" class="form-control" id="idBroj" placeholder="ID" required>
                      </div>
                     <div class="form-group">
                        <label for="name">Ime</label>
-                       <input type="text" ngModel="{{urediAutor?.ime}}" name="name" class="form-control" id="ime" placeholder="Ime" required>
+                       <input type="text" ngModel="{{urediAutor?.ime}}" name="ime" class="form-control" id="ime" placeholder="Ime" required>
                     </div>
                     <div class="form-group">
                        <label for="email">Prezime</label>
-                       <input type="email" ngModel="{{urediAutor?.prezime}}" name="email" class="form-control" id="prezime" placeholder="Prezime" required>
+                       <input type="text" ngModel="{{urediAutor?.prezime}}" name="prezime" class="form-control" id="prezime" placeholder="Prezime" required>
                     </div>
                     <div class="form-group">
                       <label for="email">Naziv knjige</label>
-                      <input type="email" ngModel="{{urediAutor?.nazivknjige}" name="email" class="form-control" id="prezime" placeholder="Naziv knjige" required>
+                      <input type="text" ngModel="{{urediAutor?.nazivKnjige}}" name="nazivKnjige" class="form-control" id="nazivKnjige" placeholder="Naziv knjige" required>
                    </div>
                     <div class="modal-footer">
                        <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
@@ -104,16 +104,16 @@
                 <div class="modal-dialog" role="document">
                    <div class="modal-content">
                       <div class="modal-header">
-                         <h5 class="modal-title" id="deleteModelLabel">Izbriši knjižnicu</h5>
+                         <h5 class="modal-title" id="deleteModelLabel">Izbriši autora i knjigu</h5>
                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                          </button>
                       </div>
                       <div class="modal-body">
-                       <!--<p>Jeste sigurni da želite izbrisati autora{{autor?.ime}}?</p>-->  
+                       <p>Jeste sigurni da želite izbrisati autora {{izbrisiAutoraIKnjigu?.ime}} i knjigu {{izbrisiAutoraIKnjigu?.nazivKnjige}} ?</p>  
                          <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Ne</button>
-                            <button class="btn btn-danger" data-dismiss="modal">Da</button>
+                            <button (click)="izbrisiAutora(izbrisiAutoraIKnjigu?.id)" type="button" class="btn btn-danger" data-dismiss="modal">Da</button>
                          </div>
                       </div>
                    </div>
@@ -154,10 +154,10 @@
 
                     <div *ngFor="let autor of autori" class="text-95 text-secondary-d3">
                         <div class="row mb-2 mb-sm-0 py-25">
-                            <div class="d-none d-sm-block col-1">{{autor?.idBroj}}</div>
-                            <div class="col-9 col-sm-5">{{autor?.ime}}</div>
-                            <div class="d-none d-sm-block col-2">{{autor?.prezime}}</div>
-                            <div class="d-none d-sm-block col-2">{{autor?.nazivKnjige}}</div>
+                          <div class="d-none d-sm-block col-1" name="idBroj" id="idBroj">{{autor.id}}</div>
+                            <div class="col-9 col-sm-5">{{autor.ime}}{{autor?.id}}</div>
+                            <div class="d-none d-sm-block col-2">{{autor.prezime}}</div>
+                            <div class="d-none d-sm-block col-2">{{autor.nazivKnjige}}</div>
                             <button (click)="onOpenModal(autor, 'edit')" type="button" class="btn btn-primary" style="margin:5px;" >Uredi</button>
                             <button (click)="onOpenModal(autor, 'delete')" type="button" class="btn btn-danger" style="margin:5px;" >Izbriši</button>
                             
@@ -176,8 +176,8 @@
         </div>
     </div>
 
-    <!-- Notification for no employees -->
-<div class="col-lg-12 col-md-12 col-xl-12">
+
+<div *ngif="autori.length == 0" class="col-lg-12 col-md-12 col-xl-12">
     <div class="alert alert-info" role="alert">
       <h4 class="alert-heading">Nije dodana niti jedna knjiga.</h4>
       <p>Knjige nisu dodane.</p>

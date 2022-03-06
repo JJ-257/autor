@@ -10,15 +10,16 @@ import { AutorService } from './autor.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  [x: string]: any;
-  public autori: Autor[] = [];
+  public autori: Autor[];
   public urediAutor: Autor;
+  public izbrisiAutoraIKnjigu : Autor;
 
 
   constructor(private autorService: AutorService) { }
 
   ngOnInit() {
     this.dohvatiSveAutore();
+
   }
   
 
@@ -39,9 +40,11 @@ export class AppComponent implements OnInit {
      (response: Autor) => {
        console.log(response);
        this.dohvatiSveAutore();
+       addForm.reset();
      },
      (error: HttpErrorResponse) => {
        alert(error.message);
+       addForm.reset();
      }
     );
   }
@@ -58,6 +61,37 @@ export class AppComponent implements OnInit {
     );
   }
 
+  public izbrisiAutora(autorId: number): void {
+    this.autorService.izbrisiAutora(autorId).subscribe (
+      (response: void) => {
+        console.log(response);
+        this.dohvatiSveAutore();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+     );
+   }
+
+   public traziAutoraKnjigu(kljuc: string): void {
+     console.log(kljuc);
+     const rezultat: Autor[] = [];
+     for (const autor of this.autori) {
+       if(autor.ime.toLowerCase().indexOf(kljuc.toLowerCase()) !== -1
+       || autor.prezime.toLowerCase().indexOf(kljuc.toLowerCase()) !== -1
+       || autor.nazivKnjige.toLowerCase().indexOf(kljuc.toLowerCase()) !== -1)
+       {
+         rezultat.push(autor);
+       }
+     }
+     this.autori = rezultat;
+
+     if(rezultat.length === 0 || !kljuc)
+     {
+       this.dohvatiSveAutore();
+     }
+   }
+
   public onOpenModal(autor: Autor, mode: string): void {
 
     const container = document.getElementById('main-container');
@@ -73,6 +107,7 @@ export class AppComponent implements OnInit {
       button.setAttribute('data-target', '#urediAutora');
     }
     if(mode === 'delete'){
+      this.izbrisiAutoraIKnjigu = autor;
       button.setAttribute('data-target', '#izbrisiAutora');
     }
 
@@ -81,3 +116,7 @@ export class AppComponent implements OnInit {
 
   }
 }
+function addForm(addForm: any) {
+  throw new Error('Function not implemented.');
+}
+

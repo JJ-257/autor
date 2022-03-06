@@ -1,5 +1,6 @@
 export interface Autor {
-    idBroj: number;
+
+    id: number;
     ime: string;
     prezime: string;
     nazivKnjige: string;
