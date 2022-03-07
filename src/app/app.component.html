@@ -66,34 +66,36 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                  <div class="modal-header">
-                    <h5 class="modal-title" id="addEmployeeModalLabel">Uredi podatke o autoru i knjizi</h5>
+                    <h5 class="modal-title" id="urediModel">Uredi podatke o autoru i knjizi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                  </div>
                  <div class="modal-body">
-                     <form #editForm="ngForm">
-                    <div class="form-group">
-                        <label for="name">ID</label>
-                        <input type="hidden" ngModel="{{urediAutor?.id}}" name="idBroj" class="form-control" id="idBroj" placeholder="ID" required>
-                     </div>
-                    <div class="form-group">
-                       <label for="name">Ime</label>
-                       <input type="text" ngModel="{{urediAutor?.ime}}" name="ime" class="form-control" id="ime" placeholder="Ime" required>
-                    </div>
-                    <div class="form-group">
-                       <label for="email">Prezime</label>
-                       <input type="text" ngModel="{{urediAutor?.prezime}}" name="prezime" class="form-control" id="prezime" placeholder="Prezime" required>
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Naziv knjige</label>
-                      <input type="text" ngModel="{{urediAutor?.nazivKnjige}}" name="nazivKnjige" class="form-control" id="nazivKnjige" placeholder="Naziv knjige" required>
+
+                <form #updateForm="ngForm" (ngSubmit)="promjeniAutora()">
+                  <div class="form-group">
+                      <label for="name">ID</label>
+                      <input type="hidden" #id [(ngModel)]="urediAutor.id" name="id" class="form-control" id="id" placeholder="ID" > 
                    </div>
-                    <div class="modal-footer">
-                       <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                       <button (click)="promjeniAutora(editForm.value)" data-dismiss="modal" type="submit" class="btn btn-primary">Spremi promjene</button>
-                    </div>
-                </form>
+                  <div class="form-group">
+                     <label for="name">Ime</label>
+                     <input type="text" #ime [(ngModel)]="urediAutor.ime" name="ime" class="form-control" id="ime" placeholder="Ime" required>
+                  </div>
+                  <div class="form-group">
+                     <label for="email">Prezime</label>
+                     <input type="text" #prezime [(ngModel)]="urediAutor.prezime" name="prezime" class="form-control" id="prezime" placeholder="Prezime" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Naziv knjige</label>
+                    <input type="text" #nazivKnjige [(ngModel)]="urediAutor.nazivKnjige" name="nazivKnjige" class="form-control" id="nazivKnjige" placeholder="Naziv knjige" required>
+                 </div>
+                  <div class="modal-footer">
+                     <button type="reset" id="zatvoridva" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+                     <button type="submit" data-dismiss="modal" type="submit" class="btn btn-primary">Spremi promjene</button>
+                  </div>
+              </form>
+
                  </div>
               </div>
             </div>
@@ -157,7 +159,7 @@
                             <div class="col-9 col-sm-5">{{autor.ime}}</div>
                             <div class="d-none d-sm-block col-2">{{autor.prezime}}</div>
                             <div class="d-none d-sm-block col-2">{{autor.nazivKnjige}}</div>
-                            <button (click)="onOpenModal(autor, 'edit')" type="button" class="btn btn-primary" style="margin:5px;" >Uredi</button>
+                       <button (click)="onOpenModal(autor, 'edit')"  type="button" class="btn btn-primary" style="margin:5px;" >Uredi</button>
                             <button (click)="onOpenModal(autor, 'delete')" type="button" class="btn btn-danger" style="margin:5px;" >Izbriši</button>
                             
                         </div>

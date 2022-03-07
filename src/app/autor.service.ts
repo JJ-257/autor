@@ -20,8 +20,12 @@ export class AutorService {
     return this.http.post<Autor>(`${this.apiServerUrl}/autori/dodaj`, autor);
   }
 
-  public promjeniAutora(autor: Autor): Observable<Autor>{
+  /*public promjeniAutora(autor: Autor): Observable<Autor>{
     return this.http.put<Autor>(`${this.apiServerUrl}/autori/promjeni`, autor);
+  }*/
+
+  public promjeniAutora(autor: Autor){
+    return this.http.put(`${this.apiServerUrl}/autori/promjeni`, autor);
   }
 
   public izbrisiAutora(autorId: number): Observable<void>{

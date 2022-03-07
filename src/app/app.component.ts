@@ -11,8 +11,15 @@ import { AutorService } from './autor.service';
 })
 export class AppComponent implements OnInit {
   public autori: Autor[];
-  public urediAutor: Autor;
+  public urediAutor: Autor = {
+    id:null,
+    ime:"",
+    prezime:"",
+    nazivKnjige:""
+  }
   public izbrisiAutoraIKnjigu : Autor;
+
+
 
 
   constructor(private autorService: AutorService) { }
@@ -49,15 +56,16 @@ export class AppComponent implements OnInit {
     );
   }
 
-  public promjeniAutora(autor: Autor): void {
-   this.autorService.promjeniAutora(autor).subscribe (
-     (response: Autor) => {
-       console.log(response);
-       this.dohvatiSveAutore();
-     },
-     (error: HttpErrorResponse) => {
-       alert(error.message);
-     }
+
+  public promjeniAutora(){
+    document.getElementById('zatvoridva').click();
+    this.autorService.promjeniAutora(this.urediAutor).subscribe(
+      (resp) => {
+        console.log(resp);
+      },
+      (err) => {
+        console.log(err);
+      }
     );
   }
 

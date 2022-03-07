@@ -15,7 +15,8 @@ import { AutorService } from './autor.service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule  
+    FormsModule,
+    AppRoutingModule 
   ],
   providers: [AutorService],
   bootstrap: [AppComponent],
