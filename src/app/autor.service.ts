@@ -13,11 +13,11 @@ export class AutorService {
   constructor(private http: HttpClient) { }
 
   public dohvatiSveAutore(): Observable<Autor[]>{
-    return this.http.get<Autor[]>(`${this.apiServerUrl}/autori/sviautori`);
+    return this.http.get<Autor[]>(`${this.apiServerUrl}/login/autori/sviautori`);
   }
 
   public dodajAutora(autor: Autor): Observable<Autor>{
-    return this.http.post<Autor>(`${this.apiServerUrl}/autori/dodaj`, autor);
+    return this.http.post<Autor>(`${this.apiServerUrl}/login/autori/dodaj`, autor);
   }
 
   /*public promjeniAutora(autor: Autor): Observable<Autor>{
@@ -25,14 +25,14 @@ export class AutorService {
   }*/
 
   public promjeniAutora(autor: Autor){
-    return this.http.put(`${this.apiServerUrl}/autori/promjeni`, autor);
+    return this.http.put(`${this.apiServerUrl}/login/autori/promjeni`, autor);
   }
 
   public izbrisiAutora(autorId: number): Observable<void>{
-    return this.http.delete<void>(`${this.apiServerUrl}/autori/izbrisi/${autorId}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/login/autori/izbrisi/${autorId}`);
   }
 
   public dohvatiKnjigu(autorId: number): Observable<Autor>{
-    return this.http.get<Autor>(`${this.apiServerUrl}/autori/pronadi/${autorId}`);
+    return this.http.get<Autor>(`${this.apiServerUrl}/login/autori/pronadi/${autorId}`);
   }
 }
